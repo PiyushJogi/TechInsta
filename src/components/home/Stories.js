@@ -5,7 +5,7 @@ import { users } from '../../api/static_data/users';
 
 const Stories = () => {
   return (
-    <View style={{marginBottome:13}}>     
+    <View style={{marginBottom:13}}>     
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>  
             
             {users.map((element,index) =>(
