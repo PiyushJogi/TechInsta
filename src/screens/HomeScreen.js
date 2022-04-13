@@ -1,6 +1,7 @@
 import React from "react";
 import {View,Text,SafeAreaView,StyleSheet,ScrollView} from "react-native";
 
+
 import { posts } from "../api/static_data/posts";
 import Header from "../components/home/Header";
 import Posts from "../components/home/Posts";
@@ -11,6 +12,7 @@ const HomeScreen = () => {
    <View style={styles.container}>
         <Header />  
         <Stories />  
+      
         <ScrollView> 
         {posts.map((element,index)=>(
            <Posts post={element} key={index}/>
