@@ -21,8 +21,8 @@ export const posts = [
         postimgurl:'https://i.imgur.com/xDt7tqS.jpeg',
         likes:376,
         caption:'Enjoying React Native',
-        username:users[0].user,
-        userimage:users[0].image,
+        username:users[3].user,
+        userimage:users[1].image,
         comments:[
             {
                user:'Deepak Singh',
@@ -38,8 +38,8 @@ export const posts = [
         postimgurl:'https://i.imgur.com/dxjd7FB.jpg',
         likes:376,
         caption:'Enjoying React Native',
-        username:users[0].user,
-        userimage:users[0].image,
+        username:users[2].user,
+        userimage:users[2].image,
         comments:[
             {
                user:'Deepak Singh',
