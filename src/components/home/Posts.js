@@ -6,19 +6,19 @@ const PostFooterIcons = [
   {
      name:'Like',
      imageUrl:'https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png',
-     likedImageUrl:'https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png',
+     likedImageUrl:'https://img.icons8.com/ios-glyphs/344/fa314a/like-filled.png',
   },
   {
      name:'Comment',
-     imageUrl:'https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png',  
+     imageUrl:'https://img.icons8.com/material-outlined/60/ffffff/speech.png',  
   },
   {
     name:'Share',
-    imageUrl:'https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png',  
+    imageUrl:'https://img.icons8.com/fluency-systems-regular/60/ffffff/sent.png',  
  },
  {
   name:'Save',
-  imageUrl:'https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png',  
+  imageUrl:'https://img.icons8.com/fluency-systems-regular/344/ffffff/bookmark-ribbon--v1.png',  
 }
 ];
 
@@ -26,11 +26,15 @@ const Posts = ({post}) => {
   return (
   
       <View style={{marginBottom:30}}>   
-          <Divider width={1} orientation='vertical' />
+        <Divider width={1} orientation='vertical' />
         <PostHeader post={post} />
         <PostImage post={post} />
         <View style={{marginHorizontal:15,marginTop:10}}>
           <PostFooter />
+          <Likes post={post}/>
+          <Caption post={post} />
+          <CommentSection post={post} />
+          <Comments post={post} />
         </View>
      </View>
   )
@@ -54,16 +58,18 @@ const PostImage = ({post}) => (
 );
 
 const PostFooter = () => (
+ 
   <View style={{flexDirection:'row',justifyContent:'space-between'}}>
       <View style={styles.leftFooterIconsContainer}>
         <Icon imgstyle={styles.footerIcon} imgurl={PostFooterIcons[0].imageUrl} />
-        <Icon imgstyle={styles.footerIcon} imgurl={PostFooterIcons[0].imageUrl} />
-        <Icon imgstyle={styles.footerIcon} imgurl={PostFooterIcons[0].imageUrl} />
+        <Icon imgstyle={styles.footerIcon} imgurl={PostFooterIcons[1].imageUrl} />
+        <Icon imgstyle={[styles.footerIcon,styles.shareIcon]} imgurl={PostFooterIcons[2].imageUrl} />
       </View> 
       <View>
-         <Icon imgstyle={styles.footerIcon} imgurl={PostFooterIcons[0].imageUrl} />
+         <Icon imgstyle={styles.footerIcon} imgurl={PostFooterIcons[3].imageUrl} />
       </View> 
   </View>
+ 
 );
 
 const Icon = ({imgstyle,imgurl}) => (
@@ -72,8 +78,50 @@ const Icon = ({imgstyle,imgurl}) => (
 </TouchableOpacity>
 );
 
+const Likes = ({post}) => (
+  <View style={{flexDirection:'row',marginTop:4}}>
+  <Text style={{color:'white',fontWeight:'bold'}}>{post.likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} likes</Text>
+  </View>
+);
 
+const Caption = ({post}) => (
+  <View style={{marginTop:5}}>
+    <Text style={{color:'white'}}>
+      <Text style={{fontWeight:'bold'}}>{post.username}  </Text>
+      <Text>{post.caption}</Text>
+    </Text>
+</View>
+);
 
+const CommentSection = ({post}) => (
+ <View style={{marginTop:5}}>
+   { !!post.comments.length && (
+    
+    <Text style={{color:'grey'}}>
+        View {post.comments.length>1?'all':''} {post.comments.length} {post.comments.length>1?'comments':'comment'}
+    </Text>
+
+   )}
+ </View>
+);
+
+const Comments = ({post}) => (
+  <>
+     {
+       post.comments.map((element,index)=>(
+
+           <View key={index} style={{flexDirection:'row',marginTop:3}}>
+             <Text style={{color:'white'}}>
+                 <Text style={{fontWeight:'bold'}}>{element.user}  </Text>
+                 <Text>{element.comment}</Text>
+             </Text>
+           </View>
+             
+        ))
+     }
+  </>
+
+);
 
 const styles = StyleSheet.create({
   postHeaderContainer:{
@@ -90,13 +138,17 @@ const styles = StyleSheet.create({
     borderWidth:1.6,  
   },
   footerIcon:{
-    height:33,
-    width:33,
+    height:30,
+    width:30,
   },
   leftFooterIconsContainer:{
     flexDirection:'row',
     justifyContent:'space-between',
-    width:'32%',
+    width:'33%',
+  },
+  shareIcon:{
+     transform:[{rotate:'320deg'}],
+     marginTop:-3,
   },
 }); 
 
