@@ -24,7 +24,7 @@ export const posts = [
     {
         postimgurl:'https://i.imgur.com/xDt7tqS.jpeg',
         likes:183,
-        caption:'Building mobile app using React Native.Amazing youtube playlist for creating mobile apps.#React-Native #apps',
+        caption:'Building mobile app using React Native. Amazing youtube playlist for creating mobile apps.#React-Native #apps',
         username:users[3].user,
         userimage:users[1].image,
         comments:[

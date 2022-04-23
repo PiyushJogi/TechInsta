@@ -3,6 +3,7 @@ import {View,Text,SafeAreaView,StyleSheet,ScrollView} from "react-native";
 
 
 import { posts } from "../api/static_data/posts";
+import BottomTabs,{bottomTabsIcons} from "../components/home/BottomTabs";
 import Header from "../components/home/Header";
 import Posts from "../components/home/Posts";
 import Stories from "../components/home/Stories";
@@ -13,11 +14,12 @@ const HomeScreen = () => {
         <Header />  
         <Stories />  
       
-        <ScrollView> 
+        <ScrollView > 
         {posts.map((element,index)=>(
            <Posts post={element} key={index}/>
         ))}
         </ScrollView>
+        <BottomTabs icons={bottomTabsIcons}/>
    </View>
    );
 
