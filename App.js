@@ -1,7 +1,8 @@
-import { View, Text } from "react-native";
+
 import HomeScreen  from "./src/screens/HomeScreen";
-import NewPostScreen from "./src/screens/NewPostScreen";
+import SignedInStack from "./src/screens/Navigation";
+
 
 export default function App() {
-  return  <NewPostScreen />
+  return  <SignedInStack />
 }
