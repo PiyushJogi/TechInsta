@@ -1,4 +1,3 @@
-
 import HomeScreen  from "./src/screens/HomeScreen";
 import SignedInStack from "./src/screens/Navigation";
 
