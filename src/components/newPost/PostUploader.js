@@ -27,7 +27,7 @@ const PostUploader = () => {
 
           <>
              <View style={{margin:20,flexDirection:'row',justifyContent:'space-between'}}>
-               <Image source={{uri:placeholderImage}} style={{height:100,width:100}}/>
+               <Image source={{uri:thumbnailUrl?thumbnailUrl:placeholderImage}} style={{height:100,width:100}}/>
              <View style={{flex:1,marginLeft:12}}>
              <TextInput 
                   placeholder="Write a caption..." 
@@ -43,6 +43,7 @@ const PostUploader = () => {
              <Divider width={0.2} orientation="vertical" />
              <TextInput 
                   placeholder="Enter image url" 
+                  onChange={e=>setThumbnailUrl(e.nativeEvent.text)}
                   placeholderTextColor='grey' 
                   style={{color:'white',fontSize:18}}
                   onChangeText={handleChange('imageUrl')}
