@@ -2,7 +2,8 @@ import { View, Text,Image,TextInput,Button} from 'react-native'
 import React,{useState} from 'react'
 import {Formik} from 'formik'
 import * as Yup from 'yup'
-import { Divider } from 'react-native-elements';
+import { Divider } from 'react-native-elements'
+import validUrl from 'valid-url'
 
 const postValidationSchema = Yup.object({
   imageUrl: Yup.string()
@@ -14,20 +15,26 @@ const postValidationSchema = Yup.object({
 
 const placeholderImage = 'https://tse2.explicit.bing.net/th?id=OIP.AsEU_9yqRXyWLEA9nzpHQwAAAA&pid=Api&P=0&w=158&h=158'; 
 
-const PostUploader = () => {
+const PostUploader = ({navigation}) => {
   const [thumbnailUrl,setThumbnailUrl] = useState(placeholderImage);
   return (
    <Formik initialValues = {{imageUrl:'',caption:''}} 
            validationSchema = {postValidationSchema}
            validateOnMount={true}
-           onSubmit = {(values)=>console.log(values)}
+           onSubmit = {
+                        (values)=>{
+                             console.log(values)
+                             console.log('your post is submitted successfully')
+                             navigation.goBack()
+                            } 
+                      }
 
    >
       {({handleChange,handleBlur,handleSubmit,values,errors,isValid}) => (
 
           <>
              <View style={{margin:20,flexDirection:'row',justifyContent:'space-between'}}>
-               <Image source={{uri:thumbnailUrl?thumbnailUrl:placeholderImage}} style={{height:100,width:100}}/>
+               <Image source={{uri:validUrl.isUri(thumbnailUrl)?thumbnailUrl:placeholderImage}} style={{height:100,width:100}}/>
              <View style={{flex:1,marginLeft:12}}>
              <TextInput 
                   placeholder="Write a caption..." 

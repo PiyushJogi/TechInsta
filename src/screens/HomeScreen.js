@@ -8,10 +8,10 @@ import Header from "../components/home/Header";
 import Posts from "../components/home/Posts";
 import Stories from "../components/home/Stories";
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
    return(
    <View style={styles.container}>
-        <Header />  
+        <Header navigation={navigation} />  
         <Stories />  
       
         <ScrollView > 
