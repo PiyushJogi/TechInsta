@@ -1,8 +1,22 @@
-import { View, Text,TextInput,StyleSheet, Pressable,TouchableOpacity } from 'react-native'
+import { View, Text,TextInput,StyleSheet, Pressable,TouchableOpacity,Alert } from 'react-native'
 import React,{useState} from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import Validator from 'email-validator'
+import firebase from '../../../firebase'
+
+const checkLogin = async (email,password) => {
+
+    try{
+                    
+       await firebase.auth().signInWithEmailAndPassword(email,password)
+       console.log('login Success',email,password);
+    } catch(error)
+    {
+        Alert.alert(error.message);
+    }
+
+}
 
 const LoginForm = ({navigation}) => {
     const LoginFormSchema = Yup.object({
@@ -15,7 +29,7 @@ const LoginForm = ({navigation}) => {
               initialValues={{email:'',password:''}}
               validationSchema={LoginFormSchema}
               validateOnMount={true}
-              onSubmit={(values)=>{console.log(values)}}
+              onSubmit={(values)=>{checkLogin(values.email,values.password)}}
         >
        {({handleChange,handleBlur,handleSubmit,values,errors,isValid})=>(
           <>
