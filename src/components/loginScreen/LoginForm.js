@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import Validator from 'email-validator'
 import firebase from '../../../firebase'
 
-const checkLogin = async (email,password) => {
+const checkLogin = async (email,password,navigation) => {
 
     try{
                     
@@ -13,7 +13,21 @@ const checkLogin = async (email,password) => {
        console.log('login Success',email,password);
     } catch(error)
     {
-        Alert.alert(error.message);
+        Alert.alert(
+            'OOPS..',
+            error.message+'\n\n What would you like to do next?',
+            [
+              {
+                  text: 'Try Again',
+                  //onPress: ()=>console.log('Try Again'),
+                  style:'cancel',
+              },
+              {
+                  text:'Sign Up',
+                  onPress: ()=>navigation.push('SignupScreen'),  
+              }
+            ]
+        );
     }
 
 }
@@ -29,7 +43,7 @@ const LoginForm = ({navigation}) => {
               initialValues={{email:'',password:''}}
               validationSchema={LoginFormSchema}
               validateOnMount={true}
-              onSubmit={(values)=>{checkLogin(values.email,values.password)}}
+              onSubmit={(values)=>{checkLogin(values.email,values.password,navigation)}}
         >
        {({handleChange,handleBlur,handleSubmit,values,errors,isValid})=>(
           <>
