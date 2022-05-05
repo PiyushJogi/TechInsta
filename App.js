@@ -1,7 +1,5 @@
-import HomeScreen  from "./src/screens/HomeScreen";
-import SignedInStack from "./src/screens/Navigation";
-
+import AuthNavigation from "./AuthNavigation";
 
 export default function App() {
-  return  <SignedInStack />
+  return  <AuthNavigation />
 }
