@@ -45,13 +45,14 @@ const PostUploader = ({navigation}) => {
                             username:currentLoggedInUser.username,
                             userimage:currentLoggedInUser.profilePicture,
                             owner_uid:firebase.auth().currentUser.uid,
+                            owner_email:firebase.auth().currentUser.email,
                             caption: caption,
                             createdAt:firebase.firestore.FieldValue.serverTimestamp(),
-                            likes:0,
                             likes_by_users: [],
                             comments:[],
                           })
-                          .then(()=>navigation.goBack()) 
+                          .then(()=>navigation.goBack())
+                          .catch((error)=>{console.log(error)}) 
                           return unsubscribe;          
   }
 

@@ -1,6 +1,7 @@
 import { View, Text,Image,StyleSheet,TouchableOpacity} from 'react-native';
 import { Divider } from 'react-native-elements'; 
-import React from 'react';
+import React,{useState,useEffect} from 'react';
+import { firebase,db } from '../../../firebase';
 
 const PostFooterIcons = [
   {
@@ -23,6 +24,21 @@ const PostFooterIcons = [
 ];
 
 const Posts = ({post}) => {
+  const handleLike = (post) => {
+    const can_like = !post.likes_by_users.includes(firebase.auth().currentUser.email)
+   
+    db.collection('users')
+      .doc(post.owner_email)
+      .collection('posts')
+      .doc(post.id)
+      .update({
+           likes_by_users:can_like?firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.email)
+                              :firebase.firestore.FieldValue.arrayRemove(firebase.auth().currentUser.email),
+           })
+             .then(()=>{console.log('Like Successfully Updated')})
+             .catch((error)=>{console.log(error)})
+  }
+  
   return (
   
       <View style={{marginBottom:30}}>   
@@ -30,7 +46,7 @@ const Posts = ({post}) => {
         <PostHeader post={post} />
         <PostImage post={post} />
         <View style={{marginHorizontal:15,marginTop:10}}>
-          <PostFooter />
+          <PostFooter post={post} handleLike={handleLike}/>
           <Likes post={post}/>
           <Caption post={post} />
           <CommentSection post={post} />
@@ -57,11 +73,13 @@ const PostImage = ({post}) => (
   </View>
 );
 
-const PostFooter = () => (
+const PostFooter = ({handleLike,post}) => (
  
   <View style={{flexDirection:'row',justifyContent:'space-between'}}>
       <View style={styles.leftFooterIconsContainer}>
-        <Icon imgstyle={styles.footerIcon} imgurl={PostFooterIcons[0].imageUrl} />
+        <TouchableOpacity onPress={()=>handleLike(post)}>
+        <Image style={styles.footerIcon} source={{uri:PostFooterIcons[0].imageUrl}} />
+        </TouchableOpacity>
         <Icon imgstyle={styles.footerIcon} imgurl={PostFooterIcons[1].imageUrl} />
         <Icon imgstyle={[styles.footerIcon,styles.shareIcon]} imgurl={PostFooterIcons[2].imageUrl} />
       </View> 
@@ -80,7 +98,7 @@ const Icon = ({imgstyle,imgurl}) => (
 
 const Likes = ({post}) => (
   <View style={{flexDirection:'row',marginTop:4}}>
-  <Text style={{color:'white',fontWeight:'bold'}}>{post.likes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} likes</Text>
+  <Text style={{color:'white',fontWeight:'bold'}}>{post.likes_by_users.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} likes</Text>
   </View>
 );
 

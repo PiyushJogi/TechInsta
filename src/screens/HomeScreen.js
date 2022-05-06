@@ -15,7 +15,7 @@ const HomeScreen = ({navigation}) => {
    useEffect(() => {
      db.collectionGroup('posts').onSnapshot(
         (snapshot) => {
-          setPosts(snapshot.docs.map(doc => doc.data() ));
+          setPosts(snapshot.docs.map(doc => ({id:doc.id,...doc.data()}) ));
         })
    },[])
 
