@@ -78,7 +78,7 @@ const PostFooter = ({handleLike,post}) => (
   <View style={{flexDirection:'row',justifyContent:'space-between'}}>
       <View style={styles.leftFooterIconsContainer}>
         <TouchableOpacity onPress={()=>handleLike(post)}>
-        <Image style={styles.footerIcon} source={{uri:PostFooterIcons[0].imageUrl}} />
+        <Image style={styles.footerIcon} source={{uri:post.likes_by_users.includes(firebase.auth().currentUser.email)?PostFooterIcons[0].likedImageUrl:PostFooterIcons[0].imageUrl}} />
         </TouchableOpacity>
         <Icon imgstyle={styles.footerIcon} imgurl={PostFooterIcons[1].imageUrl} />
         <Icon imgstyle={[styles.footerIcon,styles.shareIcon]} imgurl={PostFooterIcons[2].imageUrl} />

@@ -13,7 +13,9 @@ const HomeScreen = ({navigation}) => {
    const [posts,setPosts] = useState([]);
 
    useEffect(() => {
-     db.collectionGroup('posts').onSnapshot(
+     db.collectionGroup('posts')
+       .orderBy('createdAt','desc')
+       .onSnapshot(
         (snapshot) => {
           setPosts(snapshot.docs.map(doc => ({id:doc.id,...doc.data()}) ));
         })
