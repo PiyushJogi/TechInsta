@@ -18,17 +18,14 @@ const Header = ({navigation}) => {
     return(
         <View style={styles.container}>
             {/* LEft side Logo */}
-            <TouchableOpacity onPress={handleSignout}>
                  <Image style = {styles.logo} source ={require("../../assets/home/header-logo.png")} />
-            </TouchableOpacity>
-
             {/* Right side icons */}
             <View style={styles.iconsContainer}>
             <TouchableOpacity onPress={()=>navigation.push('NewPostScreen')}>
                    <Image style={styles.icons} source = {{uri:'https://img.icons8.com/fluency-systems-regular/60/ffffff/plus-2-math.png'}} />
                </TouchableOpacity>
-               <TouchableOpacity>
-                   <Image style={styles.icons} source = {{uri:'https://img.icons8.com/fluency-systems-regular/60/ffffff/like--v1.png'}} />
+               <TouchableOpacity onPress={handleSignout}>
+                   <Image style={styles.icons} source = {{uri:'https://img.icons8.com/fluency-systems-regular/344/ffffff/shutdown.png'}} />
                </TouchableOpacity>
                <TouchableOpacity>
                    <View style={styles.unreadBadgeContainer}>

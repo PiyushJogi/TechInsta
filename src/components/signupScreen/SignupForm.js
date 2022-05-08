@@ -102,7 +102,7 @@ const getRandomProfilePicture = async () => {
                             autoCapitalize='none'
                             autoCorrect={false}
                             secureTextEntry={true}
-                            keyboardType='email-address'
+                            keyboardType='default'
                             textContentType='password'
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
